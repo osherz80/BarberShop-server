@@ -1,0 +1,72 @@
+-- ALTER SEQUENCE barbershop.person_person_id_seq RESTART WITH 1;
+
+INSERT INTO barbershop.person (first_name, last_name, phone_num, email)
+VALUES(
+		'moses',
+		'bravo',
+		'0586645214',
+        'moses@gmail.com'
+),
+(
+		'Nitzan',
+		'Hamzani',
+		'0586645214',
+        'Nitzan@gmail.com'
+),
+(
+		'Daniel',
+		'Larsen',
+		'0586645214',
+        'Daniel@gmail.com'
+),
+(
+		'Noémie',
+		'Wilson',
+		'0586645214',
+        'Noemie@gmail.com'
+),
+(
+		'Noya',
+		'Hezkia',
+		'0586645214',
+        'Noya@gmail.com'
+);
+
+INSERT INTO barbershop.treatment (name, description, price)
+VALUES(
+		'תספורת גברים',
+		'תספורת גברים',
+		60
+),
+(
+		'תספורת נשים',
+		'תספורת נשים',
+		250
+),
+(
+		'תספורת ילדים',
+		'תספורת ילדים',
+		50
+),
+(
+		'סידור זקן',
+		'סידור זקן',
+		20
+),
+(
+    'סידור זקן לנשים',
+    'סידור זקן לנשים',
+    30
+);
+
+INSERT INTO barbershop.appointment (customer_id, treatment, appointment_date)
+VALUES(
+		1,
+		'תספורת גברים',
+		'2022-09-24T00:00:00.000Z'
+),
+(
+		2,
+		'תספורת נשים',
+		'2022-09-25T00:00:00.000Z'
+);

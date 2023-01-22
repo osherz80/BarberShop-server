@@ -1,26 +1,12 @@
-# syntax=docker/dockerfile:1
+FROM eclipse-temurin:17-jdk-jammy
 
-# We use a multi-stage build setup.
-# (https://docs.docker.com/build/building/multi-stage/)
+WORKDIR /app
 
-# Stage 1 (to create a "build" image, ~360MB)
-FROM eclipse-temurin:17-jdk-alpine AS builder
-# smoke test to verify if java is available
-RUN java -version
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
 
-COPY . /usr/src/myapp/
-WORKDIR /usr/src/myapp/
-RUN set -Eeux \
-    && apk --no-cache add maven \
-    # smoke test to verify if maven is available
-    && mvn --version
-RUN mvn package
+RUN ./mvnw dependency:resolve
 
-# Stage 2 (to create a downsized "container executable", ~180MB)
-FROM eclipse-temurin:17-jre-alpine
-RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-COPY --from=builder /usr/src/myapp/target/app.jar .
+COPY src ./src
 
-EXPOSE 9000
-ENTRYPOINT ["java", "-jar", "./app.jar"]
+CMD ["./mvnw", "spring-boot:run"]
